@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+torch
+torchvision
+transformers
+psycopg2-binary
+xgboost
+pillow
+opencv-python-headless
+numpy
+matplotlib
+pandas
+scikit-learn
+python-multipart
+python-dotenv
