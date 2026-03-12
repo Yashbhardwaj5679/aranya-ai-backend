@@ -1,17 +1,15 @@
 venv/
-__pycache__/
+**pycache**/
 *.pyc
 *.pyo
 *.pyd
 
 .env
 
-models/
 datasets/
 data/
 
 *.pt
-*.pth
 *.pkl
 *.h5
 

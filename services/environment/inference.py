@@ -1,12 +1,22 @@
 import joblib
 import pandas as pd
+import os
+
+# -----------------------------
+# Resolve model path safely
+# -----------------------------
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_PATH = os.path.join(BASE_DIR, "environment_model.pkl")
+ENCODER_PATH = os.path.join(BASE_DIR, "encoders.pkl")
 
 # -----------------------------
 # Load model and encoders
 # -----------------------------
 
-model = joblib.load("services/environment/environment_model.pkl")
-encoders = joblib.load("services/environment/encoders.pkl")
+model = joblib.load(MODEL_PATH)
+encoders = joblib.load(ENCODER_PATH)
 
 
 # -----------------------------
@@ -22,13 +32,9 @@ def predict_environment(
     season
 ):
 
-    # Encode categorical features
-
     plant_encoded = encoders["plant"].transform([plant])[0]
     soil_encoded = encoders["soil"].transform([soil])[0]
     season_encoded = encoders["season"].transform([season])[0]
-
-    # Create dataframe
 
     input_data = pd.DataFrame([{
         "plant": plant_encoded,
@@ -38,8 +44,6 @@ def predict_environment(
         "rainfall": rainfall,
         "season": season_encoded
     }])
-
-    # Predict probability
 
     probability = model.predict_proba(input_data)[0][1]
 

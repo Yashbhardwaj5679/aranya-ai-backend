@@ -48,3 +48,4 @@ def save_prediction(
             cursor.close()
         if conn:
             conn.close()
+            
