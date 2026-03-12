@@ -10,7 +10,7 @@ datasets/
 data/
 
 *.pt
-*.pkl
+
 *.h5
 
 temp.jpg
