@@ -9,7 +9,7 @@ venv/
 datasets/
 data/
 
-*.pt
+
 
 *.h5
 

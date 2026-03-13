@@ -1,15 +1,8 @@
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-import torch
-
-
 class ExplanationEngine:
 
     def __init__(self):
-
-        model_name = "google/flan-t5-base"
-
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+        # No heavy ML model loading
+        pass
 
     def generate(
         self,
@@ -21,38 +14,28 @@ class ExplanationEngine:
         rainfall
     ):
 
-        prompt = f"""
-Explain briefly why the medicinal plant {plant} is suitable to grow in North Haryana.
+        # Interpret suitability score
+        if suitability >= 0.8:
+            suitability_text = "highly suitable"
+        elif suitability >= 0.6:
+            suitability_text = "moderately suitable"
+        else:
+            suitability_text = "less suitable"
+
+        explanation = f"""
+The medicinal plant {plant} is {suitability_text} for cultivation in North Haryana.
 
 Environmental conditions:
-soil: {soil}
-temperature: {temperature} C
-rainfall: {rainfall} mm
+- Soil type: {soil}
+- Temperature: {temperature} °C
+- Rainfall: {rainfall} mm
 
-Suitability score: {suitability}
+Based on these conditions, the recommended cultivation strategy is {strategy}.
 
-Recommended cultivation strategy: {strategy}
-
-Explain in simple terms for a farmer.
+Farmers should maintain proper soil moisture, ensure adequate sunlight, and follow the suggested cultivation method to improve yield.
 """
 
-        inputs = self.tokenizer(
-            prompt,
-            return_tensors="pt",
-            truncation=True
-        )
-
-        outputs = self.model.generate(
-            **inputs,
-            max_length=120
-        )
-
-        explanation = self.tokenizer.decode(
-            outputs[0],
-            skip_special_tokens=True
-        )
-
-        return explanation
+        return explanation.strip()
 
 
 if __name__ == "__main__":

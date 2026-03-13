@@ -9,7 +9,6 @@ huggingface_hub
 python-multipart
 pydantic
 tqdm
-transformers
 psycopg2-binary
 torch==2.10.0+cpu
 torchvision==0.25.0+cpu
