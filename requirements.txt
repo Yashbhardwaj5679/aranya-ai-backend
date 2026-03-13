@@ -5,8 +5,9 @@ torchvision
 numpy
 pillow
 scikit-learn
+pandas
+xgboost
 huggingface_hub
 python-multipart
 pydantic
 tqdm
-pandas
